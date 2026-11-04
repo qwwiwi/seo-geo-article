@@ -77,6 +77,31 @@ cover_alt: "описание сцены обложки"
 - `robots.txt` – явная политика по поисковым и обучающим ботам, ссылка на sitemap.
 - JSON-LD: `Article`/`TechArticle` (заголовок, автор, даты, картинка), `BreadcrumbList`,
   `FAQPage` – только если на странице есть видимый FAQ, `Organization` с растровым логотипом.
+- Автор в JSON-LD – `Person`, а не строка: `name` совпадает с видимой подписью, `url` ведёт
+  на страницу автора на этом же сайте, `sameAs` – только реальные профили этого человека
+  (пустой список лучше выдуманного). `dateModified` = `updated_at`, то есть дата последней
+  правки текста, а не время сборки. Пример:
+
+```json
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "<title статьи>",
+  "datePublished": "2026-11-10T09:00:00Z",
+  "dateModified": "2026-11-10T09:00:00Z",
+  "author": {
+    "@type": "Person",
+    "name": "<публичное имя автора>",
+    "url": "https://<your-domain>/authors/<author-slug>/",
+    "sameAs": ["<реальный профиль автора>"]
+  }
+}
+```
+
+- Страница автора (`/authors/<author-slug>/`) – статическая, с видимым текстом о человеке и
+  списком его статей; JSON-LD `ProfilePage` с `mainEntity` типа `Person` (те же `name`,
+  `url`, `sameAs`). Данные автора хранятся в одном месте (например, `authors.yml`), поле
+  `author` во frontmatter – ключ этой записи; сборка падает, если записи нет.
 - Open Graph и Twitter: `og:title`, `og:description`, `og:url` = canonical, `og:image`
   1200×675 с размерами и alt, `twitter:card=summary_large_image`, `og:locale`.
 
@@ -118,6 +143,8 @@ cover_alt: "описание сцены обложки"
 - [ ] Каждая картинка в `<picture>` с AVIF/WebP/JPEG, `width`/`height`; CLS 0 в Lighthouse.
 - [ ] Есть `llms.txt`, `llms-full.txt`, `.md`-двойник каждой статьи, `sitemap.xml`, `robots.txt`.
 - [ ] JSON-LD проходит валидатор schema.org; `FAQPage` только при видимом FAQ.
+- [ ] Автор статьи в JSON-LD – `Person` с `url` страницы автора; страница автора отдаёт
+      `ProfilePage`; `dateModified` не меняется при пересборке без правки текста.
 - [ ] OG-превью корректно в мессенджере (картинка, заголовок, описание).
 - [ ] Деплой делает бэкап, сухой прогон удалений и атомарную выкладку.
 - [ ] После деплоя проверка шапки на проде проходит, IndexNow и sitemap отправлены.
