@@ -8,6 +8,7 @@
 - `seo-geo-article/references/` – ресёрч (YouTube, Instagram, X, веб; соцсети – через Loore.ai), формулы заголовков и хуков, анти-слоп, humanizer, фактчек, GEO-правила, графики, обложка, принципы движка.
 - `seo-geo-article/references/promotion-links.md` – внешний трафик и ссылки без покупки.
 - `seo-geo-article/references/bots-vs-humans.md` – как отличить людей от поисковых и ИИ-ботов по логам сервера.
+- `seo-geo-article/references/site-check.md` – проверка сайта перед публикацией: адрес и редиректы, robots и sitemap, мета, 404, скорость, вебмастера.
 - `seo-geo-article/templates/` – шаблоны статьи и файла источников.
 
 ## Данные из соцсетей – Loore.ai
